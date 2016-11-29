@@ -8,9 +8,9 @@ attr_reader :balance, :transactions
   end
 
 
-def transaction(type, date, amount)
-  add_transaction(type: type, date: date, amount: amount)
-  if type == 'deposit'
+def transaction(date, type, amount)
+  add_transaction(date: date, type: type, amount: amount)
+  if type == 'credit'
     @balance += amount
   else
     @balance -= amount
@@ -19,6 +19,12 @@ end
 
 def add_transaction(info)
   @transactions << info
+end
+
+def print_transaction
+  @transactions.each do |transaction|
+     puts "Date: #{transaction[:date]} || Type: #{transaction[:type]} || Amount: £#{transaction[:amount]}".center(100)
+  end
 end
 
 end
