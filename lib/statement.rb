@@ -1,16 +1,12 @@
-class Account
+require_relative 'bankapp'
 
-  attr_reader :balance, :transactions
+class Statement
 
   def initialize
-    @balance = 0
     @transactions = []
   end
 
-  def transaction(date, type, amount)
-    amount.to_f
-    type == 'credit' ? @balance += amount : @balance -= amount
-    balance = @balance
+  def new_transaction(date, type, amount, balance)
     @transactions.unshift(date: date, type: type, amount: amount, balance: balance)
   end
 

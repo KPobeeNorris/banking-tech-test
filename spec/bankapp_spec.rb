@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Account do
 
   account = Account.new
-
+  
   context 'ability to check balance at the start' do
     it 'should have a starting balance of £0' do
       expect(account.balance).to eq 0
@@ -28,18 +28,15 @@ describe Account do
     it 'should allow a customer to make a deposit and enter the date completed' do
       account = Account.new
       account.transaction('14/01/2012', 'credit', 100)
-      expect(account.transactions).to include date: '14/01/2012', type: 'credit', amount: 100, balance: 100
+      expect(account.statement.transactions).to include date: '14/01/2012', type: 'credit', amount: 100, balance: 100
     end
   end
-end
-
-describe 'statement' do
 
   context 'customers want to view their transactions' do
     it 'should allow customers to see a transaction' do
       account = Account.new
       account.transaction('16/05/2012', 'credit', 300)
-      expect(account.print_transaction[0]).to eq({:date=>"16/05/2012", :type=>"credit", :amount=>300, :balance=>300})
+      expect(account.print_statement).to eq([{:date=>"16/05/2012", :type=>"credit", :amount=>300, :balance=>300}])
     end
   end
 
@@ -48,7 +45,7 @@ describe 'statement' do
       account = Account.new
       account.transaction('14/01/2012', 'credit', 100)
       account.transaction('16/05/2012', 'credit', 300)
-      expect(account.print_transaction).to eq([{:date=>"16/05/2012", :type=>"credit", :amount=>300, :balance=>400}, {:date=>"14/01/2012", :type=>"credit", :amount=>100, :balance=>100}])
+      expect(account.print_statement).to eq([{:date=>"16/05/2012", :type=>"credit", :amount=>300, :balance=>400}, {:date=>"14/01/2012", :type=>"credit", :amount=>100, :balance=>100}])
     end
   end
 
