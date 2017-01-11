@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Account do
 
   account = Account.new
-  
+
   context 'ability to check balance at the start' do
     it 'should have a starting balance of £0' do
       expect(account.balance).to eq 0
@@ -28,7 +28,7 @@ describe Account do
     it 'should allow a customer to make a deposit and enter the date completed' do
       account = Account.new
       account.transaction('14/01/2012', 'credit', 100)
-      expect(account.statement.transactions).to include date: '14/01/2012', type: 'credit', amount: 100, balance: 100
+      expect(account.print_statement).to include date: '14/01/2012', type: 'credit', amount: 100, balance: 100
     end
   end
 
